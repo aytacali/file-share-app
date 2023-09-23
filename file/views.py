@@ -27,8 +27,12 @@ def upload_file(request):
                     return redirect('login')
                 
                 uploaded_file = form.save()
-
-                file_user = FileUserPermission(user=user_exists, file=uploaded_file, permit=True)
+                cm_per = request.POST.get('comment_permission')
+                if cm_per == 'on':
+                    cm_per = True
+                else:
+                    cm_per = False
+                file_user = FileUserPermission(user=user_exists, file=uploaded_file, permit=True, comment_permission=cm_per)
                 file_user.save()            
 
             return redirect('/upload') #FLAW (look at the url names problem later)
@@ -57,7 +61,14 @@ def download_file(request, file_id):
 @login_required(login_url="/user/login")
 def file_detail_view(request, id = None):
     file = get_object_or_404(UploadedFile, id = id)
+    file_user = FileUserPermission.objects.filter(file=file)[0]
 
+    user_comment_permission = False
+
+    if file_user:
+        user_comment_permission = file_user.comment_permission
+
+    print('user_comment_permission', user_comment_permission)
     if request.method == 'POST':
         form = CommentForm(request.POST)
 
@@ -70,6 +81,5 @@ def file_detail_view(request, id = None):
             return HttpResponseRedirect('/file/%d/'%id)
     else:
         form = CommentForm()
-
-    comments = Comment.objects.all()
-    return render(request, 'file_detail.html', {'file': file, 'form': form, 'comments': comments})
+    comments = Comment.objects.filter(file=file)
+    return render(request, 'file_detail.html', {'file': file, 'form': form, 'comments': comments, 'user_comment_permission': user_comment_permission})

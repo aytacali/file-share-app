@@ -27,5 +27,6 @@ class FileUserPermission(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     file = models.ForeignKey(UploadedFile, null=True, on_delete=models.CASCADE)
     permit = models.BooleanField(default=True)
+    comment_permission = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
