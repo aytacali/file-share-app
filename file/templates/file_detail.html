@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+Welcome to World
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+    <h4>{{ file.file.name }}</h4>
+    <p>{{ file.description }}</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-primary" type="submit">Comment</button>
+    </form>
+    <h4>Comments:</h4>
+    <ul>
+        {% for comment in Comments %}
+            USERNAME: <li>{{ comment.creator.username }}</li>
+            COMMENT: <li>{{ comment }}</li>
+        {% empty %}
+            <li>No files comment yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
