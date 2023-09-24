@@ -5,7 +5,7 @@
 
 2. Create virtual environment via: "python -m venv venv"
 
-3. Activate virtual environmnet on windows: "venv/Scrits/activate"
+3. Activate virtual environmnet on windows: "venv/Scripts/activate"
    
 4. Install requirements via: "pip install -r requirements.txt" code in the terminal
 
