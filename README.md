@@ -12,3 +12,5 @@
 5. RUN django project: "python manage.py runserver"
 
 # RUN DOCKER COMPOSE
+
+Look up the commands.txt file in order to run the project in docker
