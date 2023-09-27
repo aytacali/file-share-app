@@ -10,3 +10,5 @@
 4. Install requirements via: "pip install -r requirements.txt" code in the terminal
 
 5. RUN django project: "python manage.py runserver"
+
+# RUN DOCKER COMPOSE
